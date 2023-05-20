@@ -1,17 +1,14 @@
-Feature: Eliminar link de navegación
+Feature: Publicar un post nueva
 
-@user2 @web
-Scenario: Eliminar un link y verificar el cambio.
+@user1 @web
+Scenario: Publicación de un post nuevo y validación de disponibilidad en la aplicación.
   Given I navigate to page "<URL>"
   And I login with username "<USERNAME>" and password "<PASSWORD>"
   And I wait for 2 seconds
-  And I go to design tab
-  And I add a new link with label "$string_1" and url "$url_1"
-  And I save the design
+  And I go to posts tab
+  When I create a new post with title "$string_1" and content "$string_2"
+  And I publish the current post
   And I wait for 1 seconds
-  Then I reload
-  When I delete created link
-  And I wait for 2 seconds
-  And I save the design
-  Then I reload
-  And I verify deleted link with label "$$string_1" and url "$$url_1" is not there
+  Then I go back to post list
+  And I wait for 1 seconds
+  And I verify that the post with title "$$string_1" is on the post list
